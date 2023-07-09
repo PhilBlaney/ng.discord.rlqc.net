@@ -1,0 +1,30 @@
+<mat-toolbar color="primary" id="NavigationBar">
+  <mat-toolbar-row>
+    <img routerLink="" src="https://discord.rlqc.net/img/logo.svg" alt="" width="29" height="29" class="d-inline-block align-text-top">
+    <ul class="nav">
+      <li class="nav-item">
+        <a mat-button routerLink="cmd" [ngClass]="">Commandes Robot</a>
+      </li>
+      <mat-divider [vertical]="true"></mat-divider>
+      <li class="nav-item">
+        <a mat-button routerLink="vocaux" [ngClass]="">Canaux Vocaux</a>
+      </li>
+      <mat-divider [vertical]="true"></mat-divider>
+      <li class="nav-item">
+        <a mat-button [matMenuTriggerFor]="menu">Modération</a>
+        <mat-menu #menu="matMenu">
+          <a mat-menu-item routerLink="namehistory">Historique de noms</a>
+          <a mat-menu-item routerLink="memberhistory">Historique des membres</a>
+          <mat-divider></mat-divider>
+          <a mat-menu-item routerLink="support">Billets de support</a>
+          <a mat-menu-item routerLink="messagerotation">Rotation de messages</a>
+          <mat-divider></mat-divider>
+          <a mat-menu-item routerLink="formation">Formation</a>
+          <a mat-menu-item routerLink="modcmd">Commandes Robot</a>
+        </mat-menu>
+      </li>
+    </ul>
+    <span class="example-spacer"></span>
+    <a mat-button routerLink="" [ngClass]="">Connexion</a>
+  </mat-toolbar-row>
+</mat-toolbar>
