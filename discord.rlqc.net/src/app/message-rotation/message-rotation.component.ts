@@ -1,25 +1,15 @@
-import { Component, ViewChild, AfterViewInit } from '@angular/core';
+import { Component, ViewChild, AfterViewInit,ChangeDetectorRef } from '@angular/core';
 import { MatTableDataSource } from '@angular/material/table';
 import { MatPaginator, MatPaginatorModule } from '@angular/material/paginator';
 import { MatSort, MatSortModule } from '@angular/material/sort';
-export interface PeriodicElement {
-  name: string;
-  position: number;
-  weight: number;
-  symbol: string;
-}
+import { first } from 'rxjs/operators';
+import { LoopMsg } from '../_models';
+import { RLQCService } from '../_services';
+import { MatDialog } from '@angular/material/dialog';
+import { LoopmsgDialogComponent } from '../loopmsg-dialog/loopmsg-dialog.component';
 
-const ELEMENT_DATA: PeriodicElement[] = [
-  {position: 1, name: 'Hydrogen', weight: 1.0079, symbol: 'H'},
-  {position: 2, name: 'Helium', weight: 4.0026, symbol: 'He'},
-  {position: 3, name: 'Lithium', weight: 6.941, symbol: 'Li'},
-  {position: 4, name: 'Beryllium', weight: 9.0122, symbol: 'Be'},
-  {position: 5, name: 'Boron', weight: 10.811, symbol: 'B'},
-  {position: 6, name: 'Carbon', weight: 12.0107, symbol: 'C'},
-  {position: 7, name: 'Nitrogen', weight: 14.0067, symbol: 'N'},
-  {position: 8, name: 'Oxygen', weight: 15.9994, symbol: 'O'},
-  {position: 9, name: 'Fluorine', weight: 18.9984, symbol: 'F'},
-  {position: 10, name: 'Neon', weight: 20.1797, symbol: 'Ne'},
+
+const ELEMENT_DATA: LoopMsg[] = [
 ];
 
 
@@ -30,17 +20,63 @@ const ELEMENT_DATA: PeriodicElement[] = [
 })
 export class MessageRotationComponent implements AfterViewInit{
   
-  displayedColumns: string[] = ['position', 'name', 'weight', 'symbol'];
+  public dataLoopMsg: LoopMsg[] = [];
+  displayedColumns: string[] = ['msg_id', 'content', ];
   dataSource = new MatTableDataSource(ELEMENT_DATA);
 
   @ViewChild(MatPaginator) paginator: MatPaginator;
   @ViewChild(MatSort) sort: MatSort;
+  constructor(private rlqcService: RLQCService, private changeDetectorRef: ChangeDetectorRef,public dialog:MatDialog){
 
+  }
+  openDialogAdd(){
+    this.dialog.open(LoopmsgDialogComponent,{
+      width:'250px'
+    })
+  }
+  openDialogModif(value:string){
+    this.dialog.open(LoopmsgDialogComponent,{
+      width:'250px'
+    })
+  }
   ngAfterViewInit(): void {
     this.dataSource.paginator = this.paginator;
     this.dataSource.sort = this.sort;
+    this.getAllLoopMsg();
   }
   applyfilter(value: string){
-    this.dataSource.filter = value.trim().toLowerCase();
+    this.dataLoopMsg = [];
+    if(value){
+      this.rlqcService.getAll('loop_msg/'+value+'/'+value).pipe(first()).subscribe(element =>{
+        for(let e of element){
+          let member : LoopMsg = {
+            msg_id : e.msg_id,
+            guild: e.guild,
+            content: e.content,
+          }
+          
+          this.dataLoopMsg.push(member);
+          this.dataSource.data = this.dataLoopMsg;
+        }
+      })
+    }
+    else{
+      this.getAllLoopMsg();
+    }
+  }
+  getAllLoopMsg(){
+    this.dataLoopMsg = [];
+    this.rlqcService.getAll('loop_msg').pipe(first()).subscribe(element =>{
+      for(let e of element){
+        let member : LoopMsg = {
+          msg_id : e.msg_id,
+          guild: e.guild,
+          content: e.content,
+        }
+        
+        this.dataLoopMsg.push(member);
+        this.dataSource.data = this.dataLoopMsg;
+      }
+    })
   }
 }

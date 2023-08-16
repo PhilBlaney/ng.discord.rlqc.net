@@ -17,10 +17,11 @@ import {MatMenuModule} from '@angular/material/menu';
 import {MatTableModule} from '@angular/material/table';
 import {MatInputModule} from '@angular/material/input';
 import {MatFormFieldModule} from '@angular/material/form-field';
+import { MatDialogModule } from '@angular/material/dialog';
 import { MatTableDataSource } from '@angular/material/table';
 import { MatPaginatorModule } from '@angular/material/paginator';
 import { MatSortModule } from '@angular/material/sort';
-
+import { HttpClientModule } from '@angular/common/http';
 
 import { CmdComponent } from './cmd/cmd.component';
 import { VocauxComponent } from './vocaux/vocaux.component';
@@ -31,6 +32,8 @@ import { MessageRotationComponent } from './message-rotation/message-rotation.co
 import { FormationComponent } from './formation/formation.component';
 import { ModerationCmdComponent } from './moderation-cmd/moderation-cmd.component';
 import { SupportHistoryComponent } from './support-history/support-history.component';
+import { SupportDialogComponent } from './support-dialog/support-dialog.component';
+import { LoopmsgDialogComponent } from './loopmsg-dialog/loopmsg-dialog.component';
 
 @NgModule({
   declarations: [
@@ -43,9 +46,12 @@ import { SupportHistoryComponent } from './support-history/support-history.compo
     MessageRotationComponent,
     FormationComponent,
     ModerationCmdComponent,
-    SupportHistoryComponent
+    SupportHistoryComponent,
+    SupportDialogComponent,
+    LoopmsgDialogComponent
   ],
   imports: [
+    HttpClientModule,
     BrowserModule,
     AppRoutingModule,
     BrowserAnimationsModule,
@@ -62,8 +68,11 @@ import { SupportHistoryComponent } from './support-history/support-history.compo
     MatInputModule,
     MatFormFieldModule,
     MatSortModule,
+    MatDialogModule
   ],
-  providers: [],
+  providers: [
+    
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule 

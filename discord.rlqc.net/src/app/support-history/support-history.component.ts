@@ -2,6 +2,10 @@ import { Component, ViewChild, AfterViewInit } from '@angular/core';
 import { MatTableDataSource } from '@angular/material/table';
 import { MatPaginator, MatPaginatorModule } from '@angular/material/paginator';
 import { MatSort, MatSortModule } from '@angular/material/sort';
+import { MatDialog } from '@angular/material/dialog';
+import { MatButtonModule } from '@angular/material/button';
+import { Support } from '../_models';
+import { SupportDialogComponent } from '../support-dialog/support-dialog.component';
 
 export interface PeriodicElement {
   name: string;
@@ -35,7 +39,12 @@ export class SupportHistoryComponent implements AfterViewInit{
 
   @ViewChild(MatPaginator) paginator: MatPaginator;
   @ViewChild(MatSort) sort: MatSort;
-
+  constructor(public dialog:MatDialog){}
+  openDialog(value:string){
+    this.dialog.open(SupportDialogComponent,{
+      width:'250px'
+    })
+  }
   ngAfterViewInit(): void {
     this.dataSource.paginator = this.paginator;
     this.dataSource.sort = this.sort;

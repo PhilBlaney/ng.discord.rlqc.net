@@ -1,27 +1,14 @@
-import { Component, ViewChild, AfterViewInit } from '@angular/core';
+import { Component, ViewChild, AfterViewInit,ChangeDetectorRef } from '@angular/core';
 import { MatTableDataSource } from '@angular/material/table';
 import { MatPaginator, MatPaginatorModule } from '@angular/material/paginator';
 import { MatSort, MatSortModule } from '@angular/material/sort';
+import { Aliases } from '../_models';
+import { RLQCService } from '../_services';
+import { first } from 'rxjs/operators';
 
-export interface PeriodicElement {
-  name: string;
-  position: number;
-  weight: number;
-  symbol: string;
-}
-
-const ELEMENT_DATA: PeriodicElement[] = [
-  {position: 1, name: 'Hydrogen', weight: 1.0079, symbol: 'H'},
-  {position: 2, name: 'Helium', weight: 4.0026, symbol: 'He'},
-  {position: 3, name: 'Lithium', weight: 6.941, symbol: 'Li'},
-  {position: 4, name: 'Beryllium', weight: 9.0122, symbol: 'Be'},
-  {position: 5, name: 'Boron', weight: 10.811, symbol: 'B'},
-  {position: 6, name: 'Carbon', weight: 12.0107, symbol: 'C'},
-  {position: 7, name: 'Nitrogen', weight: 14.0067, symbol: 'N'},
-  {position: 8, name: 'Oxygen', weight: 15.9994, symbol: 'O'},
-  {position: 9, name: 'Fluorine', weight: 18.9984, symbol: 'F'},
-  {position: 10, name: 'Neon', weight: 20.1797, symbol: 'Ne'},
+const ELEMENT_DATA: Aliases[] = [
 ];
+
 
 
 @Component({
@@ -31,9 +18,12 @@ const ELEMENT_DATA: PeriodicElement[] = [
 })
 export class NameHistoryComponent implements AfterViewInit{
   
-  displayedColumns: string[] = ['position', 'name', 'weight', 'symbol'];
+  displayedColumns: string[] = ['discord', 'name', 'timestamp', ];
   dataSource = new MatTableDataSource(ELEMENT_DATA);
+  public dataAliases: Aliases[] = [];
+  constructor(private rlqcService: RLQCService, private changeDetectorRef: ChangeDetectorRef){
 
+  }
   @ViewChild(MatPaginator) paginator: MatPaginator;
   @ViewChild(MatSort) sort: MatSort;
 
@@ -41,7 +31,28 @@ export class NameHistoryComponent implements AfterViewInit{
     this.dataSource.paginator = this.paginator;
     this.dataSource.sort = this.sort;
   }
-  applyfilter(value: string){
-    this.dataSource.filter = value.trim().toLowerCase();
+  applyfilter(value: string)  {
+    this.dataAliases = [];
+    if(value){
+      this.rlqcService.getAll('aliases/'+value+'/'+value).pipe(first()).subscribe(element =>{
+        for(let e of element){
+          let member : Aliases = {
+            id : e.id,
+            guild: e.guild,
+            discord: e.discord,           
+            timestamp: e.timestamp,
+            nick : e.nick,
+            name:e.name
+          }
+          
+          this.dataAliases.push(member);
+          this.dataSource.data = this.dataAliases;
+        }
+      })
+    }
+    else{
+      this.dataSource.data = this.dataAliases;
+    }
+    
   }
 }

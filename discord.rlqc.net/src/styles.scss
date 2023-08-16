@@ -327,8 +327,26 @@ $theme: map.set(
   .mat-mdc-menu-item{
     text-decoration: none !important;
   }
-
+  .mat-mdc-tab .mdc-tab-indicator__content--underline{
+    border-color: rgba(255, 255, 255, 0.6) !important;
+  }
+  .mat-mdc-tab-group, .mat-mdc-tab-nav-bar{
+    --mat-tab-header-active-label-text-color: white !important;
+    --mat-tab-header-active-hover-label-text-color : white;
+    --mat-tab-header-active-focus-label-text-color : white;
+  }
+  .cdk-focused.cdk-mouse-focused{
+    color: rgba(255, 255, 255, 0.6) !important;
+  }
   .flex-grow {
     flex-grow: 1;
     text-align: right;
+  }
+  .form-field-filter {
+    width: 100%;
+  }
+
+  .history-form{
+    padding-left: 1%;
+    padding-right: 1%;
   }
