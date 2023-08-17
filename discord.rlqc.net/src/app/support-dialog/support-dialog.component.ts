@@ -3,6 +3,7 @@ import {MAT_DIALOG_DATA} from '@angular/material/dialog';
 import { first } from 'rxjs/operators';
 import { RLQCService } from '../_services';
 import { Support } from '../_models';
+import { environment } from '../../environments/environment';
 
 @Component({
   selector: 'app-support-dialog',
@@ -36,5 +37,8 @@ export class SupportDialogComponent {
       }
     })
     console.dir(this.dataSupport);
+  }
+  getUrl(): string{
+    return environment.URL;
   }
 }

@@ -31,9 +31,25 @@
                   <h5>{{support.timestamp | date : 'medium':'GMT'}}</h5>
             </div>
           </ng-template>
+
         </div>
       </div>
 </div>
 <mat-dialog-actions align="end">
     <button mat-button mat-dialog-close>Cancel</button>
 </mat-dialog-actions>
+
+<!-- 
+  <div
+          *ngIf="
+              support.filetype.includes('image');
+            then image_msg;
+            else file_msg
+          "
+        ></div>
+  <ng-template #image_msg>
+  <img src="https://{{this.getUrl()}}/img/support/{{support.message_id+'-'+support.filename}}"/>
+</ng-template>
+<ng-template #file_msg>
+  <a href="https://{{this.getUrl()}}/img/support/{{support.message_id+'-'+support.filename}}"></a>
+</ng-template> -->
