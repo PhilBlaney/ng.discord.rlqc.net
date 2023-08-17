@@ -1,4 +1,4 @@
-import { Component, ViewChild, AfterViewInit,ChangeDetectorRef } from '@angular/core';
+import { Component, ViewChild, AfterViewInit } from '@angular/core';
 import { MatTableDataSource } from '@angular/material/table';
 import { MatPaginator, MatPaginatorModule } from '@angular/material/paginator';
 import { MatSort, MatSortModule } from '@angular/material/sort';
@@ -26,7 +26,7 @@ export class MessageRotationComponent implements AfterViewInit{
 
   @ViewChild(MatPaginator) paginator: MatPaginator;
   @ViewChild(MatSort) sort: MatSort;
-  constructor(private rlqcService: RLQCService, private changeDetectorRef: ChangeDetectorRef,public dialog:MatDialog){
+  constructor(private rlqcService: RLQCService, public dialog:MatDialog){
 
   }
   openDialogAdd(){

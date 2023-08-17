@@ -1,0 +1,41 @@
+.received_msg{
+    max-width: 80%;
+    border-radius: 12px;
+    padding-block: 8px;
+    padding-inline: 12px;
+    border-width: 1px;
+    border-style: solid;
+    line-height: 18px;
+    word-wrap: break-word;
+    white-space: pre-wrap;
+    border-color: #36393f;
+    background-color: #36393f;
+}
+.incoming_msg{
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+}
+.outgoing_msg{
+    display: flex;
+    justify-content: flex-end;
+    flex-direction: column;
+    align-items: flex-end;
+}
+.sent_msg{
+    max-width: 80%;
+    border-radius: 12px;
+    padding-block: 8px;
+    padding-inline: 12px;
+    border-width: 1px;
+    border-style: solid;
+    line-height: 18px;
+    word-wrap: break-word;
+    white-space: pre-wrap;
+    border-color: #1b1d20;
+    background-color: #1b1d20;
+
+}
+.msg_history p{
+    margin: 0;
+}

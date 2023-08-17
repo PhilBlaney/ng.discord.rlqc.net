@@ -3,7 +3,7 @@ export class Support {
     message_id: number;
     channel_id: number;
     author_id: number;
-    aliases: string;
+    name: string;
     content: string;
     filename: string;
     filetype:string;
