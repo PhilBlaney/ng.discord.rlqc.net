@@ -36,7 +36,6 @@ export class SupportDialogComponent {
         
       }
     })
-    console.dir(this.dataSupport);
   }
   getUrl(): string{
     return environment.URL;

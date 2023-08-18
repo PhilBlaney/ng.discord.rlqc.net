@@ -37,6 +37,6 @@
         <mat-option *ngFor="let topping of toppingList" [value]="topping">{{topping}}</mat-option>
       </mat-select>
     </mat-form-field>
-    <a mat-button routerLink="" [ngClass]="">Connexion</a>
+    <a mat-button (click)="onClickLogin()">Connexion</a>
   </mat-toolbar-row>
 </mat-toolbar>

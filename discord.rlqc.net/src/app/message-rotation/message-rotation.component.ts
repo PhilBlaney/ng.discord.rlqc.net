@@ -31,12 +31,13 @@ export class MessageRotationComponent implements AfterViewInit{
   }
   openDialogAdd(){
     this.dialog.open(LoopmsgDialogComponent,{
-      width:'250px'
+      width:'600px'
     })
   }
-  openDialogModif(value:string){
+  openDialogModif(value:LoopMsg){
     this.dialog.open(LoopmsgDialogComponent,{
-      width:'250px'
+      width:'600px',
+      data:value,
     })
   }
   ngAfterViewInit(): void {

@@ -3,8 +3,8 @@ import { BreakpointObserver, Breakpoints } from '@angular/cdk/layout';
 import { Observable } from 'rxjs';
 import { map, shareReplay } from 'rxjs/operators';
 import {FormControl} from '@angular/forms';
+import { Router } from '@angular/router';
 
-//https://discord.com/api/oauth2/authorize?client_id=1103047767946956863&redirect_uri=http%3A%2F%2Flocalhost%3A4200%2F&response_type=code&scope=identify%20guilds
 @Component({
   selector: 'app-navbar',
   templateUrl: './navbar.component.html',
@@ -20,4 +20,8 @@ export class NavbarComponent {
       map(result => result.matches),
       shareReplay()
     );
+
+  onClickLogin(){
+    window.location.href = "https://discord.com/api/oauth2/authorize?client_id=1103047767946956863&redirect_uri=http%3A%2F%2Flocalhost%3A4200%2F&response_type=code&scope=identify%20guilds"
+  }
 }

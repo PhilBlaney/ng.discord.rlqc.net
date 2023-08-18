@@ -1,12 +1,23 @@
 <h1 mat-dialog-title>Dialog Message</h1>
 <div mat-dialog-content>
-  <mat-form-field>
-    <mat-label>Favorite Animal</mat-label>
-    <input matInput>
+  <mat-form-field style="width: 100%;">
+    <mat-label>Message</mat-label>
+    <textarea matInput [(ngModel)]="message" rows="10"></textarea>
   </mat-form-field>
 </div>
 <div mat-dialog-actions>
+  <div *ngIf="
+        receivedData == null;
+        then add_loop;
+        else modifiy_loop
+"></div>
+<ng-template #add_loop>
+  <button mat-button mat-dialog-close cdkFocusInitial (click)="onAddLoopMsg()">Add</button>
+</ng-template>
+<ng-template #modifiy_loop>
+  <button mat-button mat-dialog-close cdkFocusInitial (click)="onModifyLoopMsg()">Modify</button>
+  <button mat-button mat-dialog-close cdkFocusInitial (click)="onDeleteLoopMsg()">Delete</button>
+</ng-template>
   
-  <button mat-button cdkFocusInitial>Ok</button>
-  <button mat-button>Cancel</button>
+  <button mat-button mat-dialog-close>Cancel</button>
 </div>
