@@ -2,9 +2,9 @@ import {Component, Inject, OnInit} from '@angular/core';
 import {MAT_DIALOG_DATA} from '@angular/material/dialog';
 import { first } from 'rxjs/operators';
 import { RLQCService } from '../_services';
-import { LoopMsg } from '../_models';
+import { loop_msg } from '../_models';
 interface IData{
-  loop: LoopMsg
+  loop: loop_msg
 }
 
 @Component({
@@ -16,7 +16,7 @@ export class LoopmsgDialogComponent {
   public message: string = "";
   //public receivedData: IData = {loop:{msg_id:0,content:"",guild:0}};
   public receivedData : any;
-  constructor(private rlqcService: RLQCService, @Inject(MAT_DIALOG_DATA) public data: {loop: LoopMsg}) 
+  constructor(private rlqcService: RLQCService, @Inject(MAT_DIALOG_DATA) public data: {loop: loop_msg}) 
   { 
     this.receivedData = data;
   }
@@ -31,8 +31,10 @@ export class LoopmsgDialogComponent {
       this.receivedData.content = this.message;
     }
     else{
-      this.receivedData = {msg_id:0,guild:0,content:this.message} as LoopMsg
+      this.receivedData = {msg_id:0,guild:0,content:this.message} as loop_msg
     }
+    console.dir(this.receivedData);
+    console.log("ICI PACO");
     this.rlqcService.create("loop_msg",this.receivedData).pipe(first()).subscribe((result) =>{
       console.log("Result of add");
       console.dir(result)

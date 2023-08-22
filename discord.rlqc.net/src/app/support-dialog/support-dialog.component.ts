@@ -13,6 +13,7 @@ import { environment } from '../../environments/environment';
 export class SupportDialogComponent {
   public dataSupport: Support[] = [];
   constructor(private rlqcService: RLQCService, @Inject(MAT_DIALOG_DATA) public data: {name: string}) { }
+  
   ngAfterViewInit(): void {
     this.getConversation();
   }

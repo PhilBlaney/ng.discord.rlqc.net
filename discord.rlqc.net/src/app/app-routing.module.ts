@@ -8,6 +8,7 @@ import { ModerationCmdComponent } from './moderation-cmd/moderation-cmd.componen
 import { NameHistoryComponent } from './name-history/name-history.component';
 import { SupportHistoryComponent } from './support-history/support-history.component';
 import { FormationComponent } from './formation/formation.component';
+import { LoginComponent } from './login/login.component';
 
 const routes: Routes = 
 [
@@ -18,7 +19,9 @@ const routes: Routes =
   {path: 'modcmd', component: ModerationCmdComponent},
   {path: 'namehistory', component: NameHistoryComponent},
   {path: 'support', component: SupportHistoryComponent},
+  {path: 'support/:id', component: SupportHistoryComponent},
   {path: 'formation', component: FormationComponent},
+  {path: 'login', component: LoginComponent},
   { path: '', redirectTo: '', pathMatch:'full'}
 ];
 

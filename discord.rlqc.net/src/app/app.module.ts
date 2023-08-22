@@ -34,6 +34,7 @@ import { ModerationCmdComponent } from './moderation-cmd/moderation-cmd.componen
 import { SupportHistoryComponent } from './support-history/support-history.component';
 import { SupportDialogComponent } from './support-dialog/support-dialog.component';
 import { LoopmsgDialogComponent } from './loopmsg-dialog/loopmsg-dialog.component';
+import { LoginComponent } from './login/login.component';
 
 @NgModule({
   declarations: [
@@ -48,7 +49,8 @@ import { LoopmsgDialogComponent } from './loopmsg-dialog/loopmsg-dialog.componen
     ModerationCmdComponent,
     SupportHistoryComponent,
     SupportDialogComponent,
-    LoopmsgDialogComponent
+    LoopmsgDialogComponent,
+    LoginComponent
   ],
   imports: [
     HttpClientModule,

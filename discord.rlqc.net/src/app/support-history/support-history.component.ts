@@ -8,6 +8,7 @@ import { Support } from '../_models';
 import { first } from 'rxjs/operators';
 import { SupportDialogComponent } from '../support-dialog/support-dialog.component';
 import { RLQCService } from '../_services';
+import { ActivatedRoute } from '@angular/router';
 
 const ELEMENT_DATA: Support[] = [
 ];
@@ -18,20 +19,29 @@ const ELEMENT_DATA: Support[] = [
   styleUrls: ['./support-history.component.scss']
 })
 export class SupportHistoryComponent implements AfterViewInit{
-
+  public id: string | null = "";
   public dataSupport: Support[] = [];
   displayedColumns: string[] = ['support_id', 'author_id', 'name', 'content'];
   dataSource = new MatTableDataSource(ELEMENT_DATA);
 
   @ViewChild(MatPaginator) paginator: MatPaginator;
   @ViewChild(MatSort) sort: MatSort;
-  constructor(private rlqcService: RLQCService, public dialog:MatDialog){}
+  constructor(private route: ActivatedRoute, private rlqcService: RLQCService, public dialog:MatDialog){}
   openDialog(value:string){
     this.dialog.open(SupportDialogComponent,{
       width:'60%',
       data:value,
     })
   }
+  ngOnInit() {
+    this.id = this.route.snapshot.paramMap.get('id');
+    if(this.id){
+      this.dialog.open(SupportDialogComponent,{
+        width:'60%',
+        data:this.id,
+      })
+    }
+ }
   ngAfterViewInit(): void {
     this.dataSource.paginator = this.paginator;
     this.dataSource.sort = this.sort;

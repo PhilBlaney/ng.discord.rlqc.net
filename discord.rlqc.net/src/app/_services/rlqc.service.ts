@@ -15,20 +15,10 @@ export class RLQCService {
         return (test !== Object(test));
     };
     create(theService : string, theTemplate : any) {
-        let formData = new FormData();
-        for(let i in theTemplate) {
-            formData.append(i, theTemplate[i]);
-        }
-        console.dir(formData);
-        return this.http.post<any>(`${environment.apiUrl}` + '/' + theService, formData);
+        return this.http.post<any>(`${environment.apiUrl}` + '/' + theService, theTemplate);
     }
     update(theService : string, theId : number, theTemplate : any) {
-        let formData = new FormData();
-        for(let i in theTemplate) {
-            formData.append(i, theTemplate[i]);
-        }
-        console.dir(formData);
-        return this.http.put<any>(`${environment.apiUrl}` + '/' + theService + '/' + theId, formData);
+        return this.http.put<any>(`${environment.apiUrl}` + '/' + theService + '/' + theId, theTemplate);
     }
     delete(theService : string, theId : number) {
         return this.http.delete<any>(`${environment.apiUrl}` + '/' + theService + '/' + theId);
