@@ -33,8 +33,6 @@ export class LoopmsgDialogComponent {
     else{
       this.receivedData = {msg_id:0,guild:0,content:this.message} as loop_msg
     }
-    console.dir(this.receivedData);
-    console.log("ICI PACO");
     this.rlqcService.create("loop_msg",this.receivedData).pipe(first()).subscribe((result) =>{
       console.log("Result of add");
       console.dir(result)
