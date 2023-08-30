@@ -42,12 +42,12 @@ export class LoginComponent {
           console.log(dateTime);
           localStorage.setItem("access",access_token);
           localStorage.setItem("exipre",JSON.stringify(dateTime));
-          this.router.navigate(['/'])
         }
         catch(err){
           console.log(err);
         }
       }
+      this.router.navigate(['/'])
   }
 
 }
