@@ -5,6 +5,7 @@ import { MatSort, MatSortModule } from '@angular/material/sort';
 import { Aliases } from '../_models';
 import { RLQCService } from '../_services';
 import { first } from 'rxjs/operators';
+import  {NavbarService}  from 'src/services/navbar-service.service';
 
 const ELEMENT_DATA: Aliases[] = [
 ];
@@ -21,7 +22,7 @@ export class NameHistoryComponent implements AfterViewInit{
   displayedColumns: string[] = ['discord', 'name', 'timestamp', ];
   dataSource = new MatTableDataSource(ELEMENT_DATA);
   public dataAliases: Aliases[] = [];
-  constructor(private rlqcService: RLQCService, private changeDetectorRef: ChangeDetectorRef){
+  constructor(private rlqcService: RLQCService, private changeDetectorRef: ChangeDetectorRef, private navbarService: NavbarService){
 
   }
   @ViewChild(MatPaginator) paginator: MatPaginator;
@@ -34,7 +35,7 @@ export class NameHistoryComponent implements AfterViewInit{
   applyfilter(value: string)  {
     this.dataAliases = [];
     if(value){
-      this.rlqcService.getAll('aliases/'+value+'/'+value).pipe(first()).subscribe(element =>{
+      this.rlqcService.getAll('aliases/'+value+'/'+value,this.navbarService.createHeader()).pipe(first()).subscribe(element =>{
         for(let e of element){
           let member : Aliases = {
             id : e.id,

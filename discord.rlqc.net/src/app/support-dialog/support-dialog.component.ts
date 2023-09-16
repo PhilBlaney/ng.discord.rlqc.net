@@ -4,6 +4,7 @@ import { first } from 'rxjs/operators';
 import { RLQCService } from '../_services';
 import { Support } from '../_models';
 import { environment } from '../../environments/environment';
+import { NavbarService } from 'src/services/navbar-service.service';
 
 @Component({
   selector: 'app-support-dialog',
@@ -12,14 +13,14 @@ import { environment } from '../../environments/environment';
 })
 export class SupportDialogComponent {
   public dataSupport: Support[] = [];
-  constructor(private rlqcService: RLQCService, @Inject(MAT_DIALOG_DATA) public data: {name: string}) { }
+  constructor(private rlqcService: RLQCService, @Inject(MAT_DIALOG_DATA) public data: {name: string}, private navbarService:NavbarService) { }
   
   ngAfterViewInit(): void {
     this.getConversation();
   }
   getConversation(){
     this.dataSupport = [];
-    this.rlqcService.getAll('support/convo/'+this.data).pipe(first()).subscribe(element =>{
+    this.rlqcService.getAll('support/convo/'+this.data,this.navbarService.createHeader()).pipe(first()).subscribe(element =>{
       for(let e of element){
         let member : Support = {
           support_id : e.support_id,

@@ -9,7 +9,7 @@ import { first } from 'rxjs/operators';
 import { SupportDialogComponent } from '../support-dialog/support-dialog.component';
 import { RLQCService } from '../_services';
 import { ActivatedRoute } from '@angular/router';
-
+import  {NavbarService}  from 'src/services/navbar-service.service';
 const ELEMENT_DATA: Support[] = [
 ];
 
@@ -26,14 +26,17 @@ export class SupportHistoryComponent implements AfterViewInit{
 
   @ViewChild(MatPaginator) paginator: MatPaginator;
   @ViewChild(MatSort) sort: MatSort;
-  constructor(private route: ActivatedRoute, private rlqcService: RLQCService, public dialog:MatDialog){}
+  constructor(private route: ActivatedRoute, private rlqcService: RLQCService, public dialog:MatDialog, private navbarService: NavbarService){}
   openDialog(value:string){
     this.dialog.open(SupportDialogComponent,{
       width:'60%',
       data:value,
     })
   }
-  ngOnInit() {
+  async ngOnInit() {
+    // if(await this.navbarService.validatePermission()){
+    //   console.log("bonsoir");
+    // }
     this.id = this.route.snapshot.paramMap.get('id');
     if(this.id){
       this.dialog.open(SupportDialogComponent,{
@@ -50,7 +53,7 @@ export class SupportHistoryComponent implements AfterViewInit{
   applyfilter(value: string){
     this.dataSupport = [];
     if(value){
-      this.rlqcService.getAll('support/group/'+value).pipe(first()).subscribe(element =>{
+      this.rlqcService.getAll('support/group/'+value, this.navbarService.createHeader()).pipe(first()).subscribe(element =>{
         for(let e of element){
           let member : Support = {
             support_id : e.support_id,
@@ -75,7 +78,7 @@ export class SupportHistoryComponent implements AfterViewInit{
   }
   getAllLoopMsg(){
     this.dataSupport = [];
-    this.rlqcService.getAll('support/group/').pipe(first()).subscribe(element =>{
+    this.rlqcService.getAll('support/group/', this.navbarService.createHeader()).pipe(first()).subscribe(element =>{
       for(let e of element){
         let member : Support = {
           support_id : e.support_id,

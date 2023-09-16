@@ -7,7 +7,7 @@ import { loop_msg } from '../_models';
 import { RLQCService } from '../_services';
 import { MatDialog } from '@angular/material/dialog';
 import { LoopmsgDialogComponent } from '../loopmsg-dialog/loopmsg-dialog.component';
-
+import { NavbarService } from 'src/services/navbar-service.service';
 
 const ELEMENT_DATA: loop_msg[] = [
 ];
@@ -26,7 +26,7 @@ export class MessageRotationComponent implements AfterViewInit{
 
   @ViewChild(MatPaginator) paginator: MatPaginator;
   @ViewChild(MatSort) sort: MatSort;
-  constructor(private rlqcService: RLQCService, public dialog:MatDialog){
+  constructor(private rlqcService: RLQCService, public dialog:MatDialog, private navbarService:NavbarService){
 
   }
   openDialogAdd(){
@@ -52,7 +52,7 @@ export class MessageRotationComponent implements AfterViewInit{
   applyfilter(value: string){
     this.dataLoopMsg = [];
     if(value){
-      this.rlqcService.getAll('loop_msg/'+value+'/'+value).pipe(first()).subscribe(element =>{
+      this.rlqcService.getAll('loop_msg/'+value+'/'+value,this.navbarService.createHeader()).pipe(first()).subscribe(element =>{
         for(let e of element){
           let member : loop_msg = {
             msg_id : e.msg_id,
@@ -71,7 +71,7 @@ export class MessageRotationComponent implements AfterViewInit{
   }
   getAllLoopMsg(){
     this.dataLoopMsg = [];
-    this.rlqcService.getAll('loop_msg').pipe(first()).subscribe(element =>{
+    this.rlqcService.getAll('loop_msg',this.navbarService.createHeader()).pipe(first()).subscribe(element =>{
       for(let e of element){
         let member : loop_msg = {
           msg_id : e.msg_id,

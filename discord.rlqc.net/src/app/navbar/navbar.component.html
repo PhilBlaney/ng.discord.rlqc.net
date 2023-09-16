@@ -5,38 +5,55 @@
       <li class="nav-item">
         <a mat-button routerLink="cmd" [ngClass]="">Commandes Robot</a>
       </li>
-      <mat-divider [vertical]="true"></mat-divider>
-      <li class="nav-item">
-        <a mat-button routerLink="vocaux" [ngClass]="">Canaux Vocaux</a>
-      </li>
-      <mat-divider [vertical]="true"></mat-divider>
-      <li class="nav-item">
-        <a mat-button [matMenuTriggerFor]="menu">Modération</a>
-        <mat-menu #menu="matMenu">
-          <a mat-menu-item routerLink="namehistory">Historique de noms</a>
-          <a mat-menu-item routerLink="memberhistory">Historique des membres</a>
-          <mat-divider></mat-divider>
-          <a mat-menu-item routerLink="support">Billets de support</a>
-          <a mat-menu-item routerLink="messagerotation">Rotation de messages</a>
-          <mat-divider></mat-divider>
-          <a mat-menu-item routerLink="formation">Formation</a>
-          <a mat-menu-item routerLink="modcmd">Commandes Robot</a>
-        </mat-menu>
-      </li>
+      <ng-container *ngIf="isAdmin">
+        <mat-divider [vertical]="true"></mat-divider>
+        <li class="nav-item">
+          <a mat-button routerLink="vocaux" [ngClass]="">Canaux Vocaux</a>
+        </li>
+        <mat-divider [vertical]="true"></mat-divider>
+        <li class="nav-item">
+          <a mat-button [matMenuTriggerFor]="menu">Modération</a>
+          <mat-menu #menu="matMenu">
+            <a mat-menu-item routerLink="namehistory">Historique de noms</a>
+            <a mat-menu-item routerLink="memberhistory">Historique des membres</a>
+            <mat-divider></mat-divider>
+            <a mat-menu-item routerLink="support">Billets de support</a>
+            <a mat-menu-item routerLink="messagerotation">Rotation de messages</a>
+            <mat-divider></mat-divider>
+            <a mat-menu-item routerLink="formation">Formation</a>
+            <a mat-menu-item routerLink="modcmd">Commandes Robot</a>
+          </mat-menu>
+        </li>
+      </ng-container>
     </ul>
     <span class="example-spacer"></span>
-    <mat-form-field class="guild-select-form">
-      <mat-label>Serveurs</mat-label>
-      <mat-select [formControl]="toppings" multiple class="guild-select">
-        <mat-select-trigger>
-          {{toppings.value?.[0] || ''}}
-          <span *ngIf="(toppings.value?.length || 0) > 1" class="example-additional-selection">
-            (+{{(toppings.value?.length || 0) - 1}} {{toppings.value?.length === 2 ? 'other' : 'others'}})
-          </span>
-        </mat-select-trigger>
-        <mat-option *ngFor="let topping of toppingList" [value]="topping">{{topping}}</mat-option>
-      </mat-select>
-    </mat-form-field>
-    <a mat-button (click)="onClickLogin()">Connexion</a>
+    <ng-container *ngIf="isAdmin">
+      <mat-form-field class="guild-select-form">
+        <mat-label>Serveurs</mat-label>
+        <mat-select [formControl]="toppings" multiple class="guild-select">
+          <mat-select-trigger>
+            {{toppings.value?.[0] || ''}}
+            <span *ngIf="(toppings.value?.length || 0) > 1" class="example-additional-selection">
+              (+{{(toppings.value?.length || 0) - 1}} {{toppings.value?.length === 2 ? 'other' : 'others'}})
+            </span>
+          </mat-select-trigger>
+          <mat-option *ngFor="let topping of toppingList" [value]="topping">{{topping}}</mat-option>
+        </mat-select>
+      </mat-form-field>
+    </ng-container>
+    <div
+        *ngIf="
+            isConnected;
+          then disconnect_btn;
+          else connect_btn
+        "
+        ></div>
+        <ng-template #connect_btn>
+          <a mat-button (click)="onClickLogin()">Connexion</a>
+        </ng-template>
+        <ng-template #disconnect_btn>
+          <a mat-button (click)="onClickLogout()">Déconnexion</a>
+        </ng-template>
+    
   </mat-toolbar-row>
 </mat-toolbar>

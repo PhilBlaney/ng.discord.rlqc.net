@@ -5,7 +5,6 @@ import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
-
 import { MatToolbarModule } from '@angular/material/toolbar';
 import { MatButtonModule } from '@angular/material/button';
 import { MatSelectModule } from '@angular/material/select';
@@ -35,6 +34,7 @@ import { SupportHistoryComponent } from './support-history/support-history.compo
 import { SupportDialogComponent } from './support-dialog/support-dialog.component';
 import { LoopmsgDialogComponent } from './loopmsg-dialog/loopmsg-dialog.component';
 import { LoginComponent } from './login/login.component';
+import { AccessDeniedComponent } from './access-denied/access-denied.component';
 
 @NgModule({
   declarations: [
@@ -50,7 +50,8 @@ import { LoginComponent } from './login/login.component';
     SupportHistoryComponent,
     SupportDialogComponent,
     LoopmsgDialogComponent,
-    LoginComponent
+    LoginComponent,
+    AccessDeniedComponent
   ],
   imports: [
     HttpClientModule,
@@ -73,10 +74,9 @@ import { LoginComponent } from './login/login.component';
     MatDialogModule,
     MatSelectModule,
     FormsModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
   ],
   providers: [
-    
   ],
   bootstrap: [AppComponent]
 })

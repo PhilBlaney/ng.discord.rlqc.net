@@ -6,7 +6,7 @@ import { MatTable } from '@angular/material/table';
 import { MemberHistory } from '../_models';
 import { RLQCService } from '../_services';
 import { first } from 'rxjs/operators';
-
+import { NavbarService } from 'src/services/navbar-service.service';
 const ELEMENT_DATA: MemberHistory[] = [
 ];
 
@@ -20,7 +20,7 @@ export class MemberHistoryComponent  implements AfterViewInit{
 
 
   public dataMemberHistory: MemberHistory[] = [];
-  constructor(private rlqcService: RLQCService, private changeDetectorRef: ChangeDetectorRef){
+  constructor(private rlqcService: RLQCService, private changeDetectorRef: ChangeDetectorRef, private navbarService:NavbarService){
 
   }
   
@@ -39,7 +39,7 @@ export class MemberHistoryComponent  implements AfterViewInit{
   {
     this.dataMemberHistory = [];
     if(value){
-      this.rlqcService.getAll('member_history/'+value+'/'+value+'/'+value).pipe(first()).subscribe(element =>{
+      this.rlqcService.getAll('member_history/'+value+'/'+value+'/'+value,this.navbarService.createHeader()).pipe(first()).subscribe(element =>{
         for(let e of element){
           let member : MemberHistory = {
             id : e.id,

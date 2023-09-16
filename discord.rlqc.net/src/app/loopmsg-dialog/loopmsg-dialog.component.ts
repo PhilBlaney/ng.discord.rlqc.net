@@ -3,6 +3,7 @@ import {MAT_DIALOG_DATA} from '@angular/material/dialog';
 import { first } from 'rxjs/operators';
 import { RLQCService } from '../_services';
 import { loop_msg } from '../_models';
+import  {NavbarService}  from 'src/services/navbar-service.service';
 interface IData{
   loop: loop_msg
 }
@@ -16,7 +17,7 @@ export class LoopmsgDialogComponent {
   public message: string = "";
   //public receivedData: IData = {loop:{msg_id:0,content:"",guild:0}};
   public receivedData : any;
-  constructor(private rlqcService: RLQCService, @Inject(MAT_DIALOG_DATA) public data: {loop: loop_msg}) 
+  constructor(private rlqcService: RLQCService, @Inject(MAT_DIALOG_DATA) public data: {loop: loop_msg}, private navbarService: NavbarService) 
   { 
     this.receivedData = data;
   }
@@ -46,7 +47,7 @@ export class LoopmsgDialogComponent {
     });
   }
   onDeleteLoopMsg(){
-    this.rlqcService.delete("loop_msg",this.receivedData.msg_id).pipe(first()).subscribe((result) =>{
+    this.rlqcService.delete("loop_msg",this.receivedData.msg_id, this.navbarService.createHeader()).pipe(first()).subscribe((result) =>{
       console.log("Result of delete");
       console.dir(result)
     });

@@ -4,6 +4,7 @@ import { Observable } from 'rxjs';
 import { map, shareReplay } from 'rxjs/operators';
 import {FormControl} from '@angular/forms';
 import { Router } from '@angular/router';
+import { NavbarService } from 'src/services/navbar-service.service';
 
 @Component({
   selector: 'app-navbar',
@@ -13,15 +14,36 @@ import { Router } from '@angular/router';
 export class NavbarComponent {
   private breakpointObserver = inject(BreakpointObserver);
   toppings = new FormControl('');
-
+  public isAdmin:boolean = false;
+  public isConnected:boolean = false;
   toppingList: string[] = ['Extra cheese', 'Mushroom', 'Onion', 'Pepperoni', 'Sausage', 'Tomato'];
   isHandset$: Observable<boolean> = this.breakpointObserver.observe(Breakpoints.Handset)
     .pipe(
       map(result => result.matches),
       shareReplay()
     );
+  constructor(private navbarService : NavbarService)
+  {
 
+  }
+  async ngOnInit(){
+    if(this.navbarService.getCookie('access')){
+      this.isConnected = true;
+      if(await this.navbarService.validatePermission()){
+        this.isAdmin = true;
+      }
+    }
+    
+  }
   onClickLogin(){
-    window.location.href = "https://discord.com/api/oauth2/authorize?client_id=1103047767946956863&redirect_uri=http%3A%2F%2Flocalhost%3A4200%2Flogin&response_type=code&scope=identify%20guilds"
+    window.location.href = "https://discord.com/api/oauth2/authorize?client_id=1103047767946956863&redirect_uri=http%3A%2F%2Flocalhost%3A4200%2Flogin&response_type=code&scope=identify%20guilds%20guilds.members.read"
+  }
+  onClickLogout(){
+    this.navbarService.deleteCookie('access');
+    this.navbarService.deleteCookie('refresh');
+    this.navbarService.deleteCookie('user_id');
+    this.navbarService.deleteCookie('expire');
+    this.isConnected = false;
+    this.isAdmin = false;
   }
 }
