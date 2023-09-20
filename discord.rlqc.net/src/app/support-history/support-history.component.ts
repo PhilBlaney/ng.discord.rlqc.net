@@ -34,9 +34,6 @@ export class SupportHistoryComponent implements AfterViewInit{
     })
   }
   async ngOnInit() {
-    // if(await this.navbarService.validatePermission()){
-    //   console.log("bonsoir");
-    // }
     this.id = this.route.snapshot.paramMap.get('id');
     if(this.id){
       this.dialog.open(SupportDialogComponent,{

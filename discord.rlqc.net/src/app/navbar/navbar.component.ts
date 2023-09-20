@@ -5,7 +5,8 @@ import { map, shareReplay } from 'rxjs/operators';
 import {FormControl} from '@angular/forms';
 import { Router } from '@angular/router';
 import { NavbarService } from 'src/services/navbar-service.service';
-
+import { Guild } from '../_models/guild';
+import { MatOptionSelectionChange } from '@angular/material/core';
 @Component({
   selector: 'app-navbar',
   templateUrl: './navbar.component.html',
@@ -13,10 +14,11 @@ import { NavbarService } from 'src/services/navbar-service.service';
 })
 export class NavbarComponent {
   private breakpointObserver = inject(BreakpointObserver);
-  toppings = new FormControl('');
   public isAdmin:boolean = false;
   public isConnected:boolean = false;
-  toppingList: string[] = ['Extra cheese', 'Mushroom', 'Onion', 'Pepperoni', 'Sausage', 'Tomato'];
+  public selectedGuild:Guild;
+  private expire:any;
+  guildList:Guild[] = [];
   isHandset$: Observable<boolean> = this.breakpointObserver.observe(Breakpoints.Handset)
     .pipe(
       map(result => result.matches),
@@ -31,6 +33,8 @@ export class NavbarComponent {
       this.isConnected = true;
       if(await this.navbarService.validatePermission()){
         this.isAdmin = true;
+        this.expire = this.navbarService.getCookie('expire')
+        this.guildList = await this.navbarService.getGuilds();
       }
     }
     
@@ -45,5 +49,13 @@ export class NavbarComponent {
     this.navbarService.deleteCookie('expire');
     this.isConnected = false;
     this.isAdmin = false;
+  }
+  onSelectedGuild(guild:MatOptionSelectionChange<Guild>){
+    if(guild.source.value){
+      this.navbarService.setCookie('selectedGuild',guild.source.value.id.toString(),this.expire)
+    }
+    else{
+      this.navbarService.deleteCookie('selectedGuild');
+    }
   }
 }
