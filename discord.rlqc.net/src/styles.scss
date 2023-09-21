@@ -26,12 +26,11 @@ body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
 @import url('https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500&display=swap');
 
 $fontConfig: (
-  font-family:   'Roboto, "Helvetica Neue", sans-serif',
   display-4: mat.define-typography-level(112px, 112px, 300, 'Roboto', -0.0134em),
   display-3: mat.define-typography-level(56px, 56px, 400, 'Roboto', -0.0089em),
   display-2: mat.define-typography-level(45px, 48px, 400, 'Roboto', 0.0000em),
   display-1: mat.define-typography-level(34px, 40px, 400, 'Roboto', 0.0074em),
-  headline: mat.define-typography-level(32px, 32px, 400, 'Roboto', 0.0000em),
+  headline: mat.define-typography-level(24px, 32px, 400, 'Roboto', 0.0000em),
   title: mat.define-typography-level(20px, 32px, 500, 'Roboto', 0.0075em),
   subheading-2: mat.define-typography-level(16px, 28px, 400, 'Roboto', 0.0094em),
   subheading-1: mat.define-typography-level(15px, 24px, 500, 'Roboto', 0.0067em),
@@ -130,7 +129,7 @@ $mat-light-theme-background: (
 );
 
 // Dark bg
-$dark-background:     #36393f;
+$dark-background:     #111111;
 $dark-bg-lighter-5:   lighten($dark-background, 5%);
 $dark-bg-lighter-10:  lighten($dark-background, 10%);
 $dark-bg-lighter-20:  lighten($dark-background, 20%);
@@ -163,18 +162,18 @@ $mat-dark-theme-background: (
 // Theme Config
 
 body {
-  --primary-color: #212529;
-  --primary-lighter-color: #bcbebf;
-  --primary-darker-color: #141619;
+  --primary-color: #4c79f2;
+  --primary-lighter-color: #c9d7fb;
+  --primary-darker-color: #335cec;
   --text-primary-color: #{$light-primary-text};
   --text-primary-lighter-color: #{$dark-primary-text};
   --text-primary-darker-color: #{$light-primary-text};
 }   
 $mat-primary: (
-  main: #212529,
-  lighter: #bcbebf,
-  darker: #141619,
-  200: #212529, // For slide toggle,
+  main: #4c79f2,
+  lighter: #c9d7fb,
+  darker: #335cec,
+  200: #4c79f2, // For slide toggle,
   contrast : (
     main: $light-primary-text,
     lighter: $dark-primary-text,
@@ -185,18 +184,18 @@ $theme-primary: mat.define-palette($mat-primary, main, lighter, darker);
 
 
 body {
-  --accent-color: #343a40;
-  --accent-lighter-color: #c2c4c6;
-  --accent-darker-color: #21252a;
+  --accent-color: #141414;
+  --accent-lighter-color: #b9b9b9;
+  --accent-darker-color: #0b0b0b;
   --text-accent-color: #{$light-primary-text};
   --text-accent-lighter-color: #{$dark-primary-text};
   --text-accent-darker-color: #{$light-primary-text};
 }   
 $mat-accent: (
-  main: #343a40,
-  lighter: #c2c4c6,
-  darker: #21252a,
-  200: #343a40, // For slide toggle,
+  main: #141414,
+  lighter: #b9b9b9,
+  darker: #0b0b0b,
+  200: #141414, // For slide toggle,
   contrast : (
     main: $light-primary-text,
     lighter: $dark-primary-text,
@@ -318,16 +317,16 @@ $theme: map.set(
     position: relative;
     background-color:#343a40 !important;
   }
-  .mdc-list-item__primary-text{
-    color: #dee2e6 !important; /* Change the color to your desired color */
-    text-decoration: none !important;
-  }
+//   .mdc-list-item__primary-text{
+//     color: #dee2e6 !important; /* Change the color to your desired color */
+//     text-decoration: none !important;
+//   }
   .mat-mdc-menu-item{
     text-decoration: none !important;
   }
-  .mat-mdc-tab .mdc-tab-indicator__content--underline{
-    border-color: rgba(255, 255, 255, 0.6) !important;
-  }
+//   .mat-mdc-tab .mdc-tab-indicator__content--underline{
+//     border-color: rgba(255, 255, 255, 0.6) !important;
+//   }
   .mat-mdc-tab-group, .mat-mdc-tab-nav-bar{
     --mat-tab-header-active-label-text-color: white !important;
     --mat-tab-header-active-hover-label-text-color : white;
@@ -351,4 +350,8 @@ $theme: map.set(
   .mdc-text-field {
     border-top-left-radius: 0px !important;
     border-top-right-radius: 0px !important;
+  }
+  .mat-toolbar.mat-primary {
+    background: #1c1c1c;
+    color: white;
   }
