@@ -1,8 +1,54 @@
-<h1>Commandes - Modérateur</h1>
-<mat-tab-group>
-    <mat-tab label="Administration"> Content 1 </mat-tab>
-    <mat-tab label="Modération"> Content 2 </mat-tab>
-    <mat-tab label="Écrire en tant que Robot RLQC"> Content 3 </mat-tab>
-    <mat-tab label="Sanctions"> Content 3 </mat-tab>
-    <mat-tab label="Notes de dossier"> Content 3 </mat-tab>
-</mat-tab-group>
+<div style="margin-left: -12px;margin-top: -1%;">
+	<mat-sidenav-container class="example-container" autosize>
+		<mat-sidenav #sidenav class="example-sidenav" mode="side" opened="true" disableClose="true">
+			<mat-nav-list>
+				<mat-list-item (click)="showSubmenu = !showSubmenu" class="parent">
+					<span class="full-width" *ngIf="isShowing">Administration</span>
+					<mat-icon class="menu-button" [ngClass]="{'rotated' : showSubmenu}" *ngIf="isShowing">expand_more</mat-icon>
+				</mat-list-item>
+				<div class="submenu" [ngClass]="{'expanded' : showSubmenu}" *ngIf="isShowing">
+					<a mat-list-item href="...">Submenu Item 1</a>
+					<a mat-list-item href="...">Submenu Item 2</a>
+				</div>
+				<mat-list-item (click)="showSubmenu = !showSubmenu" class="parent">
+					<span class="full-width" *ngIf="isShowing">Modération</span>
+					<mat-icon class="menu-button" [ngClass]="{'rotated' : showSubmenu}" *ngIf=" isShowing">expand_more</mat-icon>
+				</mat-list-item>
+				<div class="submenu" [ngClass]="{'expanded' : showSubmenu}" *ngIf="isShowing">
+					<a mat-list-item href="...">Submenu Item 1</a>
+					<a mat-list-item href="...">Submenu Item 2</a>
+				</div>
+				<mat-list-item (click)="showSubmenu = !showSubmenu" class="parent">
+					<span class="full-width" *ngIf="isShowing">Écrire en tant que Robot RLQC</span>
+					<mat-icon class="menu-button" [ngClass]="{'rotated' : showSubmenu}" *ngIf="isShowing">expand_more</mat-icon>
+				</mat-list-item>
+				<div class="submenu" [ngClass]="{'expanded' : showSubmenu}" *ngIf="isShowing">
+					<a mat-list-item href="...">Submenu Item 1</a>
+					<a mat-list-item href="...">Submenu Item 2</a>
+				</div>
+				<mat-list-item (click)="showSubmenu = !showSubmenu" class="parent">
+					<span class="full-width" *ngIf="isShowing">Sanctions</span>
+					<mat-icon class="menu-button" [ngClass]="{'rotated' : showSubmenu}" *ngIf="isShowing">expand_more</mat-icon>
+				</mat-list-item>
+				<div class="submenu" [ngClass]="{'expanded' : showSubmenu}" *ngIf="isShowing">
+					<a mat-list-item href="...">Submenu Item 1</a>
+					<a mat-list-item href="...">Submenu Item 2</a>
+				</div>
+				<mat-list-item (click)="showSubmenu = !showSubmenu" class="parent">
+					<span class="full-width" *ngIf="isShowing">Notes de dossier</span>
+					<mat-icon class="menu-button" [ngClass]="{'rotated' : showSubmenu}" *ngIf="isShowing">expand_more</mat-icon>
+				</mat-list-item>
+				<div class="submenu" [ngClass]="{'expanded' : showSubmenu}" *ngIf="isShowing">
+					<a mat-list-item href="...">Submenu Item 1</a>
+					<a mat-list-item href="...">Submenu Item 2</a>
+				</div>
+			</mat-nav-list>
+		<mat-nav-list>
+	</mat-nav-list>
+		</mat-sidenav>
+
+		<div class="example-sidenav-content">
+			
+		</div>
+	</mat-sidenav-container>
+</div>
