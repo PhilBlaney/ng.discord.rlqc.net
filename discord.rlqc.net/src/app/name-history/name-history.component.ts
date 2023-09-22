@@ -9,8 +9,8 @@ import  {NavbarService}  from 'src/services/navbar-service.service';
 
 const ELEMENT_DATA: Aliases[] = [
 ];
-
-
+let typingTimer:any;
+let doneTypingInterval = 500;
 
 @Component({
   selector: 'app-name-history',
@@ -22,20 +22,27 @@ export class NameHistoryComponent implements AfterViewInit{
   displayedColumns: string[] = ['discord', 'name', 'timestamp', ];
   dataSource = new MatTableDataSource(ELEMENT_DATA);
   public dataAliases: Aliases[] = [];
+  private selectedGuild:string = "";
   constructor(private rlqcService: RLQCService, private changeDetectorRef: ChangeDetectorRef, private navbarService: NavbarService){
 
   }
   @ViewChild(MatPaginator) paginator: MatPaginator;
   @ViewChild(MatSort) sort: MatSort;
-
+  async ngOnInit(){
+    this.navbarService.events$.forEach(event => this.selectedGuild = event);
+  }
   ngAfterViewInit(): void {
     this.dataSource.paginator = this.paginator;
     this.dataSource.sort = this.sort;
   }
   applyfilter(value: string)  {
+    clearTimeout(typingTimer)
+    typingTimer = setTimeout(()=>this.getAliases(value), doneTypingInterval);
+  }
+  getAliases(value:string){
     this.dataAliases = [];
     if(value){
-      this.rlqcService.getAll('aliases/'+value+'/'+value,this.navbarService.createHeader()).pipe(first()).subscribe(element =>{
+      this.rlqcService.getAll('aliases/'+value+'/'+value,this.navbarService.createHeader(this.selectedGuild)).pipe(first()).subscribe(element =>{
         for(let e of element){
           let member : Aliases = {
             id : e.id,
@@ -54,6 +61,5 @@ export class NameHistoryComponent implements AfterViewInit{
     else{
       this.dataSource.data = this.dataAliases;
     }
-    
   }
 }

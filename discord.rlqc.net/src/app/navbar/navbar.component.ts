@@ -24,7 +24,7 @@ export class NavbarComponent {
       map(result => result.matches),
       shareReplay()
     );
-  constructor(private navbarService : NavbarService)
+  constructor(private router: Router,private navbarService : NavbarService)
   {
 
   }
@@ -49,13 +49,19 @@ export class NavbarComponent {
     this.navbarService.deleteCookie('expire');
     this.isConnected = false;
     this.isAdmin = false;
+    this.router.navigate(['/']).then(() => {
+      window.location.reload();
+    });
   }
-  onSelectedGuild(guild:MatOptionSelectionChange<Guild>){
-    if(guild.source.value){
-      this.navbarService.setCookie('selectedGuild',guild.source.value.id.toString(),this.expire)
-    }
-    else{
-      this.navbarService.deleteCookie('selectedGuild');
+  onSelectedGuild(event:MatOptionSelectionChange<Guild>){
+    console.log(event)
+    if (event.isUserInput){
+      var value = "";
+      if(event.source.value)
+      {
+        value = event.source.value.id.toString();
+      }
+      this.navbarService.newEvent(value);
     }
   }
 }

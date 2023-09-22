@@ -11,12 +11,14 @@ import { Guild } from 'src/app/_models/guild';
   providedIn: 'root'
 })
 export class NavbarService {
+  private _subject = new Subject<any>();
   private expire:string | null;
   private refresh:string | null;
   private access:string | null;
   private user_id:string;
   private guild:string = "218484309776924672";
   private guilds: Guild[] = [];
+
   constructor(private rlqcService:RLQCService ){
     this.user_id = this.getCookie("user_id") ?? "";
     this.access  = this.getCookie("access");
@@ -31,13 +33,14 @@ export class NavbarService {
     }
     return false;
   }
-  createHeader(){
+  createHeader(selectedGuild:string = ""){
     let headers = new HttpHeaders();
     if(this.user_id && this.access)
     {
       headers = headers.append('user_id',this.user_id);
       headers = headers.append('guild',this.guild);
       headers = headers.append('authorization',this.access);
+      headers = headers.append('selected_guild',selectedGuild.toString());
     }
     return headers;
   }
@@ -96,5 +99,11 @@ export class NavbarService {
       }
     } 
     return this.guilds;
+  }
+  newEvent(event:any) {
+    this._subject.next(event);
+  }
+  get events$ () {
+    return this._subject.asObservable();
   }
 }

@@ -9,7 +9,7 @@ interface Response {
 @Injectable({ providedIn: 'root' })
 export class RLQCService {
     constructor(private http: HttpClient) { }
-    getAll(theService:string, theHeader: HttpHeaders){
+    getAll(theService:string, theHeader: HttpHeaders){        
         return this.http.get<any[]>(`${environment.apiUrl}` + '/' + theService, {headers:theHeader}) 
     }
     get(theService : string, theId : number, theHeader: HttpHeaders) {

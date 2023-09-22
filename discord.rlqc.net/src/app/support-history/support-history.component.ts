@@ -12,6 +12,8 @@ import { ActivatedRoute } from '@angular/router';
 import  {NavbarService}  from 'src/services/navbar-service.service';
 const ELEMENT_DATA: Support[] = [
 ];
+let typingTimer:any;
+let doneTypingInterval = 500;
 
 @Component({
   selector: 'app-support-history',
@@ -21,6 +23,7 @@ const ELEMENT_DATA: Support[] = [
 export class SupportHistoryComponent implements AfterViewInit{
   public id: string | null = "";
   public dataSupport: Support[] = [];
+  private selectedGuild:string = "";
   displayedColumns: string[] = ['support_id', 'author_id', 'name', 'content'];
   dataSource = new MatTableDataSource(ELEMENT_DATA);
 
@@ -41,16 +44,21 @@ export class SupportHistoryComponent implements AfterViewInit{
         data:this.id,
       })
     }
+    this.navbarService.events$.forEach(event => this.selectedGuild = event);
  }
   ngAfterViewInit(): void {
     this.dataSource.paginator = this.paginator;
     this.dataSource.sort = this.sort;
-    this.getAllLoopMsg();
+    this.getAllSupport();
   }
   applyfilter(value: string){
+    clearTimeout(typingTimer)
+    typingTimer = setTimeout(()=>this.getSpecificSupport(value), doneTypingInterval);
+  }
+  getSpecificSupport(value:string){
     this.dataSupport = [];
     if(value){
-      this.rlqcService.getAll('support/group/'+value, this.navbarService.createHeader()).pipe(first()).subscribe(element =>{
+      this.rlqcService.getAll('support/group/'+value, this.navbarService.createHeader(this.selectedGuild)).pipe(first()).subscribe(element =>{
         for(let e of element){
           let member : Support = {
             support_id : e.support_id,
@@ -65,17 +73,18 @@ export class SupportHistoryComponent implements AfterViewInit{
           }
           
           this.dataSupport.push(member);
-          this.dataSource.data = this.dataSupport;
+          
         }
-      })
+        this.dataSource.data = this.dataSupport;
+      });
     }
     else{
-      this.getAllLoopMsg();
+      this.getAllSupport();
     }
   }
-  getAllLoopMsg(){
+  getAllSupport(){
     this.dataSupport = [];
-    this.rlqcService.getAll('support/group/', this.navbarService.createHeader()).pipe(first()).subscribe(element =>{
+    this.rlqcService.getAll('support/group/', this.navbarService.createHeader(this.selectedGuild)).pipe(first()).subscribe(element =>{
       for(let e of element){
         let member : Support = {
           support_id : e.support_id,

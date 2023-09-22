@@ -9,7 +9,8 @@ import { first } from 'rxjs/operators';
 import { NavbarService } from 'src/services/navbar-service.service';
 const ELEMENT_DATA: MemberHistory[] = [
 ];
-
+let typingTimer:any;
+let doneTypingInterval = 500;
 
 @Component({
   selector: 'app-member-history',
@@ -17,9 +18,8 @@ const ELEMENT_DATA: MemberHistory[] = [
   styleUrls: ['./member-history.component.scss']
 })
 export class MemberHistoryComponent  implements AfterViewInit{
-
-
   public dataMemberHistory: MemberHistory[] = [];
+  private selectedGuild:string = "";
   constructor(private rlqcService: RLQCService, private changeDetectorRef: ChangeDetectorRef, private navbarService:NavbarService){
 
   }
@@ -31,15 +31,23 @@ export class MemberHistoryComponent  implements AfterViewInit{
   @ViewChild(MatSort) sort: MatSort;
   @ViewChild(MatTable) table: MatTable<any>;
 
+  ngOnInit(){
+    this.navbarService.events$.forEach(event => this.selectedGuild = event.toString());
+  }
   ngAfterViewInit(): void {
     this.dataSource.paginator = this.paginator;
     this.dataSource.sort = this.sort;
   }
   applyfilter(value: string)
   {
+    clearTimeout(typingTimer)
+    typingTimer = setTimeout(()=>this.getMemberHistory(value), doneTypingInterval);
+  }
+  getMemberHistory(value: string){
+    console.dir(value);
     this.dataMemberHistory = [];
     if(value){
-      this.rlqcService.getAll('member_history/'+value+'/'+value+'/'+value,this.navbarService.createHeader()).pipe(first()).subscribe(element =>{
+      this.rlqcService.getAll('member_history/'+value+'/'+value+'/'+value,this.navbarService.createHeader(this.selectedGuild)).pipe(first()).subscribe(element =>{
         for(let e of element){
           let member : MemberHistory = {
             id : e.id,
@@ -60,6 +68,5 @@ export class MemberHistoryComponent  implements AfterViewInit{
     else{
       this.dataSource.data = this.dataMemberHistory;
     }
-    
   }
 }

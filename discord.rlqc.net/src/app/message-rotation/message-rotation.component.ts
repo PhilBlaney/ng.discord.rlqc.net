@@ -11,7 +11,8 @@ import { NavbarService } from 'src/services/navbar-service.service';
 
 const ELEMENT_DATA: loop_msg[] = [
 ];
-
+let typingTimer:any;
+let doneTypingInterval = 500;
 
 @Component({
   selector: 'app-message-rotation',
@@ -21,6 +22,7 @@ const ELEMENT_DATA: loop_msg[] = [
 export class MessageRotationComponent implements AfterViewInit{
   
   public dataLoopMsg: loop_msg[] = [];
+  private selectedGuild:string = "";
   displayedColumns: string[] = ['msg_id', 'content', ];
   dataSource = new MatTableDataSource(ELEMENT_DATA);
 
@@ -28,6 +30,9 @@ export class MessageRotationComponent implements AfterViewInit{
   @ViewChild(MatSort) sort: MatSort;
   constructor(private rlqcService: RLQCService, public dialog:MatDialog, private navbarService:NavbarService){
 
+  }
+  async ngOnInit(){
+    this.navbarService.events$.forEach(event => this.selectedGuild = event);
   }
   openDialogAdd(){
     this.dialog.open(LoopmsgDialogComponent,{
@@ -50,9 +55,13 @@ export class MessageRotationComponent implements AfterViewInit{
     this.getAllLoopMsg();
   }
   applyfilter(value: string){
+    clearTimeout(typingTimer)
+    typingTimer = setTimeout(()=>this.getSpecificLoopMsg(value), doneTypingInterval);
+  }
+  getSpecificLoopMsg(value: string){
     this.dataLoopMsg = [];
     if(value){
-      this.rlqcService.getAll('loop_msg/'+value+'/'+value,this.navbarService.createHeader()).pipe(first()).subscribe(element =>{
+      this.rlqcService.getAll('loop_msg/'+value+'/'+value,this.navbarService.createHeader(this.selectedGuild)).pipe(first()).subscribe(element =>{
         for(let e of element){
           let member : loop_msg = {
             msg_id : e.msg_id,
@@ -71,7 +80,7 @@ export class MessageRotationComponent implements AfterViewInit{
   }
   getAllLoopMsg(){
     this.dataLoopMsg = [];
-    this.rlqcService.getAll('loop_msg',this.navbarService.createHeader()).pipe(first()).subscribe(element =>{
+    this.rlqcService.getAll('loop_msg',this.navbarService.createHeader(this.selectedGuild)).pipe(first()).subscribe(element =>{
       for(let e of element){
         let member : loop_msg = {
           msg_id : e.msg_id,

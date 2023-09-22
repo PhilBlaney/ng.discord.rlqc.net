@@ -17,9 +17,13 @@ export class LoopmsgDialogComponent {
   public message: string = "";
   //public receivedData: IData = {loop:{msg_id:0,content:"",guild:0}};
   public receivedData : any;
+  private selectedGuild:string = "";
   constructor(private rlqcService: RLQCService, @Inject(MAT_DIALOG_DATA) public data: {loop: loop_msg}, private navbarService: NavbarService) 
   { 
     this.receivedData = data;
+  }
+  ngOnInit(){
+    this.navbarService.events$.forEach(event => this.selectedGuild = event);
   }
   ngAfterViewInit(): void {
     if(this.receivedData){
@@ -47,7 +51,7 @@ export class LoopmsgDialogComponent {
     });
   }
   onDeleteLoopMsg(){
-    this.rlqcService.delete("loop_msg",this.receivedData.msg_id, this.navbarService.createHeader()).pipe(first()).subscribe((result) =>{
+    this.rlqcService.delete("loop_msg",this.receivedData.msg_id, this.navbarService.createHeader(this.selectedGuild)).pipe(first()).subscribe((result) =>{
       console.log("Result of delete");
       console.dir(result)
     });
