@@ -36,6 +36,11 @@ export class SupportHistoryComponent implements AfterViewInit{
       data:value,
     })
   }
+  onClick(event:any, value:string){
+    if(event.which==2){
+      window.open('/support/'+value);
+    }
+  }
   async ngOnInit() {
     this.id = this.route.snapshot.paramMap.get('id');
     if(this.id){
