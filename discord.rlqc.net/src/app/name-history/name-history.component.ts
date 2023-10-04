@@ -6,11 +6,11 @@ import { Aliases } from '../_models';
 import { RLQCService } from '../_services';
 import { first } from 'rxjs/operators';
 import  {NavbarService}  from 'src/services/navbar-service.service';
-
+import { environment } from 'src/environments/environment';
 const ELEMENT_DATA: Aliases[] = [
 ];
 let typingTimer:any;
-let doneTypingInterval = 500;
+let doneTypingInterval = environment.TEXTBOX_TIMER;
 
 @Component({
   selector: 'app-name-history',

@@ -18,11 +18,11 @@ export class RLQCService {
     isPrimitive(test:any) {
         return (test !== Object(test));
     };
-    create(theService : string, theTemplate : any) {
-        return this.http.post<any>(`${environment.apiUrl}` + '/' + theService, theTemplate);
+    create(theService : string, theTemplate : any, theHeader: HttpHeaders) {
+        return this.http.post<any>(`${environment.apiUrl}` + '/' + theService, theTemplate,{headers:theHeader});
     }
-    update(theService : string, theId : number, theTemplate : any) {
-        return this.http.put<any>(`${environment.apiUrl}` + '/' + theService + '/' + theId, theTemplate);
+    update(theService : string, theId : number, theTemplate : any, theHeader: HttpHeaders) {
+        return this.http.put<any>(`${environment.apiUrl}` + '/' + theService + '/' + theId, theTemplate,{headers:theHeader});
     }
     delete(theService : string, theId : number, theHeader: HttpHeaders) {
         return this.http.delete<any>(`${environment.apiUrl}` + '/' + theService + '/' + theId, {headers:theHeader});

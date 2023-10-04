@@ -30,7 +30,7 @@ export class LoopmsgDialogComponent {
       this.message = this.receivedData.content;
     }
   }
-  //content ne add/modify pas correctement. Delete fonctionne
+  
   onAddLoopMsg(){
     if(this.receivedData){
       this.receivedData.content = this.message;
@@ -38,14 +38,14 @@ export class LoopmsgDialogComponent {
     else{
       this.receivedData = {msg_id:0,guild:0,content:this.message} as loop_msg
     }
-    this.rlqcService.create("loop_msg",this.receivedData).pipe(first()).subscribe((result) =>{
+    this.rlqcService.create("loop_msg",this.receivedData,this.navbarService.createHeader()).pipe(first()).subscribe((result) =>{
       console.log("Result of add");
       console.dir(result)
     });
   }
   onModifyLoopMsg(){
     this.receivedData.content = this.message;
-    this.rlqcService.update("loop_msg",this.receivedData.msg_id,this.receivedData).pipe(first()).subscribe((result) =>{
+    this.rlqcService.update("loop_msg",this.receivedData.msg_id,this.receivedData,this.navbarService.createHeader()).pipe(first()).subscribe((result) =>{
       console.log("Result of modify");
       console.dir(result)
     });

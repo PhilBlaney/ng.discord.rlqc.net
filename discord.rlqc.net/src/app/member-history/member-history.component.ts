@@ -1,16 +1,17 @@
 import { Component, ViewChild, AfterViewInit, ChangeDetectorRef } from '@angular/core';
 import { MatTableDataSource } from '@angular/material/table';
-import { MatPaginator, MatPaginatorModule } from '@angular/material/paginator';
-import { MatSort, MatSortModule } from '@angular/material/sort';
+import { MatPaginator } from '@angular/material/paginator';
+import { MatSort } from '@angular/material/sort';
 import { MatTable } from '@angular/material/table';
 import { MemberHistory } from '../_models';
 import { RLQCService } from '../_services';
 import { first } from 'rxjs/operators';
 import { NavbarService } from 'src/services/navbar-service.service';
+import { environment } from 'src/environments/environment';
 const ELEMENT_DATA: MemberHistory[] = [
 ];
 let typingTimer:any;
-let doneTypingInterval = 500;
+let doneTypingInterval = environment.TEXTBOX_TIMER;
 
 @Component({
   selector: 'app-member-history',

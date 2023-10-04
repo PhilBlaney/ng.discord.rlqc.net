@@ -1,18 +1,18 @@
 import { Component, ViewChild, AfterViewInit } from '@angular/core';
 import { MatTableDataSource } from '@angular/material/table';
-import { MatPaginator, MatPaginatorModule } from '@angular/material/paginator';
-import { MatSort, MatSortModule } from '@angular/material/sort';
+import { MatPaginator } from '@angular/material/paginator';
+import { MatSort } from '@angular/material/sort';
 import { first } from 'rxjs/operators';
 import { loop_msg } from '../_models';
 import { RLQCService } from '../_services';
 import { MatDialog } from '@angular/material/dialog';
 import { LoopmsgDialogComponent } from '../loopmsg-dialog/loopmsg-dialog.component';
 import { NavbarService } from 'src/services/navbar-service.service';
-
+import { environment } from 'src/environments/environment';
 const ELEMENT_DATA: loop_msg[] = [
 ];
 let typingTimer:any;
-let doneTypingInterval = 500;
+let doneTypingInterval = environment.TEXTBOX_TIMER;
 
 @Component({
   selector: 'app-message-rotation',

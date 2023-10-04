@@ -1,10 +1,8 @@
 import { Injectable } from '@angular/core';
 import { Subject } from 'rxjs';
-import axios from 'axios';
 import { environment } from 'src/environments/environment';
 import { RLQCService } from 'src/app/_services';
 import { HttpHeaders } from '@angular/common/http';
-import { first } from 'rxjs/operators';
 import { Guild } from 'src/app/_models/guild';
 
 @Injectable({
@@ -16,7 +14,7 @@ export class NavbarService {
   private refresh:string | null;
   private access:string | null;
   private user_id:string;
-  private guild:string = "218484309776924672";
+  private guild:string = environment.DEFAULT_GUILD;
   private guilds: Guild[] = [];
 
   constructor(private rlqcService:RLQCService ){

@@ -2,11 +2,12 @@ import { Component, inject } from '@angular/core';
 import { BreakpointObserver, Breakpoints } from '@angular/cdk/layout';
 import { Observable } from 'rxjs';
 import { map, shareReplay } from 'rxjs/operators';
-import {FormControl} from '@angular/forms';
 import { Router } from '@angular/router';
 import { NavbarService } from 'src/services/navbar-service.service';
 import { Guild } from '../_models/guild';
 import { MatOptionSelectionChange } from '@angular/material/core';
+import { environment } from 'src/environments/environment';
+
 @Component({
   selector: 'app-navbar',
   templateUrl: './navbar.component.html',
@@ -40,7 +41,7 @@ export class NavbarComponent {
     
   }
   onClickLogin(){
-    window.location.href = "https://discord.com/api/oauth2/authorize?client_id=1103047767946956863&redirect_uri=http%3A%2F%2Flocalhost%3A4200%2Flogin&response_type=code&scope=identify%20guilds%20guilds.members.read"
+    window.location.href = environment.DISCORD_LOGIN
   }
   onClickLogout(){
     this.navbarService.deleteCookie('access');

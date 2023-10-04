@@ -10,10 +10,11 @@ import { SupportDialogComponent } from '../support-dialog/support-dialog.compone
 import { RLQCService } from '../_services';
 import { ActivatedRoute } from '@angular/router';
 import  {NavbarService}  from 'src/services/navbar-service.service';
+import { environment } from 'src/environments/environment';
 const ELEMENT_DATA: Support[] = [
 ];
 let typingTimer:any;
-let doneTypingInterval = 500;
+let doneTypingInterval = environment.TEXTBOX_TIMER;
 
 @Component({
   selector: 'app-support-history',

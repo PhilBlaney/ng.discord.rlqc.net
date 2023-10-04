@@ -57,4 +57,3 @@ export class LoginComponent {
 
 }
 
-//https://stackoverflow.com/questions/43159090/how-can-i-detect-service-variable-change-when-updated-from-another-component
