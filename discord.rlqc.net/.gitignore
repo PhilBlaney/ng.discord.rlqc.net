@@ -40,3 +40,7 @@ testem.log
 # System files
 .DS_Store
 Thumbs.db
+
+#environnement
+discord.rlqc.net/src/environments/environment.ts
+discord.rlqc.net/src/environments/environment.development.ts
