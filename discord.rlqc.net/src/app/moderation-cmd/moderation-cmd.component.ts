@@ -8,19 +8,5 @@ import { MatSidenav } from '@angular/material/sidenav';
 })
 export class ModerationCmdComponent {
   @ViewChild('sidenav') sidenav: MatSidenav;
-  showSubmenu: boolean = false;
-  isShowing = true;
-  showSubSubMenu: boolean = false;
-
-  mouseenter() {
-    
-      this.isShowing = true;
-    
-  }
-
-  mouseleave() {
-    
-      this.isShowing = false;
-    
-  }
+  ShowingAdmin = false; ShowingModeration = false;ShowingWriting = false;ShowingSanction=false;ShowingNotes = false;
 }

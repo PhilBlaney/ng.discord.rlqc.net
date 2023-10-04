@@ -2,53 +2,76 @@
 	<mat-sidenav-container class="example-container" autosize>
 		<mat-sidenav #sidenav class="example-sidenav" mode="side" opened="true" disableClose="true">
 			<mat-nav-list>
-				<mat-list-item (click)="showSubmenu = !showSubmenu" class="parent">
-					<span class="full-width" *ngIf="isShowing">Administration</span>
-					<mat-icon class="menu-button" [ngClass]="{'rotated' : showSubmenu}" *ngIf="isShowing">expand_more</mat-icon>
+				<mat-list-item (click)="ShowingAdmin = !ShowingAdmin" class="parent">
+					<span class="full-width">Administration</span>
+					<mat-icon class="menu-button" [ngClass]="{'rotated' : ShowingAdmin}">expand_more</mat-icon>
 				</mat-list-item>
-				<div class="submenu" [ngClass]="{'expanded' : showSubmenu}" *ngIf="isShowing">
-					<a mat-list-item href="...">Submenu Item 1</a>
-					<a mat-list-item href="...">Submenu Item 2</a>
+				<div class="submenu" [ngClass]="{'expanded' : ShowingAdmin,'notShowing':!ShowingAdmin}" *ngIf="ShowingAdmin">
+					<a mat-list-item routerLink="leave">Leave</a>
+					<a mat-list-item routerLink="reboot">Reboot</a>
+					<a mat-list-item routerLink="shutdown">Shutdown</a>
+					<a mat-list-item routerLink="guilds">Guilds</a>
+					<!-- <a mat-list-item >Loop</a> -->
+					<a mat-list-item routerLink="uptime">Uptime</a>
+					<a mat-list-item routerLink="move">Move</a>
+					<!-- <a mat-list-item >Loadnames</a> -->
+					<a mat-list-item routerLink="dm">DMs</a>
+					<a mat-list-item routerLink="invite">Invite</a>
+					<a mat-list-item routerLink="role">Role</a>
+					<a mat-list-item routerLink="purge">Purge</a>
 				</div>
-				<mat-list-item (click)="showSubmenu = !showSubmenu" class="parent">
-					<span class="full-width" *ngIf="isShowing">Modération</span>
-					<mat-icon class="menu-button" [ngClass]="{'rotated' : showSubmenu}" *ngIf=" isShowing">expand_more</mat-icon>
+				<mat-list-item (click)="ShowingModeration = !ShowingModeration" class="parent">
+					<span class="full-width" >Modération</span>
+					<mat-icon class="menu-button" [ngClass]="{'rotated' : ShowingModeration}">expand_more</mat-icon>
 				</mat-list-item>
-				<div class="submenu" [ngClass]="{'expanded' : showSubmenu}" *ngIf="isShowing">
-					<a mat-list-item href="...">Submenu Item 1</a>
-					<a mat-list-item href="...">Submenu Item 2</a>
+				<div class="submenu" [ngClass]="{'expanded' : ShowingModeration,'notShowing':!ShowingModeration}" *ngIf="ShowingModeration">
+					<a mat-list-item routerLink="roles">Roles</a>
+					<a mat-list-item routerLink="mention">Mention</a>
+					<a mat-list-item routerLink="identification">Id</a>
+					<a mat-list-item routerLink="created">Created</a>
+					<a mat-list-item routerLink="active">Active</a>
+					<a mat-list-item routerLink="invitedby">Invited By</a>
+					<a mat-list-item routerLink="user">User</a>
+					<a mat-list-item routerLink="member">Member</a>
+					<a mat-list-item routerLink="guildinfo">Guild Info</a>
+					<a mat-list-item routerLink="search">Search</a>
 				</div>
-				<mat-list-item (click)="showSubmenu = !showSubmenu" class="parent">
-					<span class="full-width" *ngIf="isShowing">Écrire en tant que Robot RLQC</span>
-					<mat-icon class="menu-button" [ngClass]="{'rotated' : showSubmenu}" *ngIf="isShowing">expand_more</mat-icon>
+				<mat-list-item (click)="ShowingWriting = !ShowingWriting" class="parent">
+					<span class="full-width" >Écrire en tant que Robot RLQC</span>
+					<mat-icon class="menu-button" [ngClass]="{'rotated' : ShowingWriting}" >expand_more</mat-icon>
 				</mat-list-item>
-				<div class="submenu" [ngClass]="{'expanded' : showSubmenu}" *ngIf="isShowing">
-					<a mat-list-item href="...">Submenu Item 1</a>
-					<a mat-list-item href="...">Submenu Item 2</a>
+				<div class="submenu" [ngClass]="{'expanded' : ShowingWriting,'notShowing':!ShowingWriting}" *ngIf="ShowingWriting">
+					<a mat-list-item routerLink="say">Say</a>
+					<a mat-list-item routerLink="edit">Edit</a>
+					<a mat-list-item routerLink="react">React</a>
+					<a mat-list-item routerLink="status">Status</a>
+					<a mat-list-item routerLink="streaming">Streaming</a>
 				</div>
-				<mat-list-item (click)="showSubmenu = !showSubmenu" class="parent">
-					<span class="full-width" *ngIf="isShowing">Sanctions</span>
-					<mat-icon class="menu-button" [ngClass]="{'rotated' : showSubmenu}" *ngIf="isShowing">expand_more</mat-icon>
+				<mat-list-item (click)="ShowingSanction = !ShowingSanction" class="parent">
+					<span class="full-width" >Sanctions</span>
+					<mat-icon class="menu-button" [ngClass]="{'rotated' : ShowingSanction}" >expand_more</mat-icon>
 				</mat-list-item>
-				<div class="submenu" [ngClass]="{'expanded' : showSubmenu}" *ngIf="isShowing">
-					<a mat-list-item href="...">Submenu Item 1</a>
-					<a mat-list-item href="...">Submenu Item 2</a>
+				<div class="submenu" [ngClass]="{'expanded' : ShowingSanction,'notShowing':!ShowingSanction}" *ngIf="ShowingSanction">
+					<a mat-list-item routerLink="bymember">Sanctions by Member</a>
+					<a mat-list-item routerLink="byid">Sanctions by Id</a>
 				</div>
-				<mat-list-item (click)="showSubmenu = !showSubmenu" class="parent">
-					<span class="full-width" *ngIf="isShowing">Notes de dossier</span>
-					<mat-icon class="menu-button" [ngClass]="{'rotated' : showSubmenu}" *ngIf="isShowing">expand_more</mat-icon>
+				<mat-list-item (click)="ShowingNotes = !ShowingNotes" class="parent">
+					<span class="full-width" >Notes de dossier</span>
+					<mat-icon class="menu-button" [ngClass]="{'rotated' : ShowingNotes}" >expand_more</mat-icon>
 				</mat-list-item>
-				<div class="submenu" [ngClass]="{'expanded' : showSubmenu}" *ngIf="isShowing">
-					<a mat-list-item href="...">Submenu Item 1</a>
-					<a mat-list-item href="...">Submenu Item 2</a>
+				<div class="submenu" [ngClass]="{'expanded' : ShowingNotes,'notShowing':!ShowingNotes}" *ngIf="ShowingNotes">
+					<a mat-list-item routerLink="remove">Remove</a>
+					<a mat-list-item routerLink="note">Note</a>
+					<a mat-list-item routerLink="warning">Warning</a>
+					<a mat-list-item routerLink="history">History</a>
 				</div>
 			</mat-nav-list>
-		<mat-nav-list>
-	</mat-nav-list>
 		</mat-sidenav>
-
-		<div class="example-sidenav-content">
-			
-		</div>
+		<div class="container" style="margin-top:1%;margin-left:3%; margin-right:3%">
+			<div class="row">
+				<router-outlet></router-outlet>
+			</div>
+		  </div>
+		
 	</mat-sidenav-container>
 </div>
