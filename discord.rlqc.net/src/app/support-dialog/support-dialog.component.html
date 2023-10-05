@@ -17,6 +17,14 @@
                   <p>{{ support.content }}</p>
                 </div>
               </div>
+              <div *ngIf="support.filename">
+                <div *ngIf="support.filetype.includes('image')">
+                  <img src="https://{{this.getUrl()}}/img/support/{{support.message_id+'-'+support.filename}}"/>
+                </div>
+                <div *ngIf="!support.filetype.includes('image')">
+                  <a href="https://{{this.getUrl()}}/img/support/{{support.message_id+'-'+support.filename}}">{{support.filename}}</a>
+                </div>
+              </div>
               <h5>{{support.timestamp | date : 'medium':'GMT'}}</h5>
             </div>
             
@@ -26,6 +34,14 @@
                 <div class="sent_msg">
                     <div class="sent_withd_msg">
                       <p>{{ support.content }}</p>
+                    </div>
+                  </div>
+                  <div *ngIf="support.filename">
+                    <div *ngIf="support.filetype == 'image'">
+                      <img src="https://{{this.getUrl()}}/img/support/{{support.message_id+'-'+support.filename}}"/>
+                    </div>
+                    <div *ngIf="support.filetype != 'image'">
+                      <a href="https://{{this.getUrl()}}/img/support/{{support.message_id+'-'+support.filename}}">{{support.filename}}</a>
                     </div>
                   </div>
                   <h5>{{support.timestamp | date : 'medium':'GMT'}}</h5>
